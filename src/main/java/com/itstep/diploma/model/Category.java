@@ -17,7 +17,7 @@ public class Category {
     private String name_category;
 
     @NotBlank(message = "Indicate the percentage")
-    @Column(name = "parcentage_value")
+    @Column(name = "percentage_value")
     private int percentage;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "event_id")
@@ -62,7 +62,7 @@ public class Category {
         return journalSet;
     }
 
-    public void setJournal(Set<Journal> journal) {
+    public void setJournal(Set<Journal> journalSet) {
         this.journalSet = journalSet;
     }
 
