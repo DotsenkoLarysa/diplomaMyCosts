@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class UserRepositoryImpl implements UserRepository{
+public abstract class UserRepositoryImpl implements UserRepository{
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -27,7 +27,7 @@ public class UserRepositoryImpl implements UserRepository{
 
     public User saveUser(User user) {
         Role userRole = roleRepository.getRoleByName("ADMIN");
-        user.setRoleSet(new HashSet<Role>(Arrays.asList(userRole)));
+        user.setRoleSet(new HashSet<>(Collections.singletonList(userRole)));
         return userRepository.save(user);
     }
 
@@ -48,19 +48,10 @@ public class UserRepositoryImpl implements UserRepository{
         return null;
     }
 
-    @Override
-    public List<User> findAllById(Iterable<Long> iterable) {
-        return null;
-    }
 
     @Override
     public long count() {
         return 0;
-    }
-
-    @Override
-    public void deleteById(Long aLong) {
-
     }
 
     @Override
@@ -88,15 +79,7 @@ public class UserRepositoryImpl implements UserRepository{
         return null;
     }
 
-    @Override
-    public Optional<User> findById(Long aLong) {
-        return Optional.empty();
-    }
 
-    @Override
-    public boolean existsById(Long aLong) {
-        return false;
-    }
 
     @Override
     public void flush() {
@@ -155,6 +138,6 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public Optional<User> findUserByUsername(String username) {
-        return null;
+        return Optional.empty();
     }
 }

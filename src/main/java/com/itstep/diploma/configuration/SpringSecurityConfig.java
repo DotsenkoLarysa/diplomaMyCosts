@@ -5,11 +5,14 @@ import com.itstep.diploma.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 
 
 @Configuration
@@ -71,6 +74,27 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         //Настройка службы для поиска пользователя в базе данных и установка пароляEncoder
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    public RoleHierarchyImpl roleHierarchy() {
+        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+        String hierarchy =
+                "ADMIN > USER " +
+                "ADMIN_GLOBAL_MANAGEMENT > ADMIN_COMMON " +
+                        "ADMIN_GLOBAL_MANAGEMENT > ADMIN_USER_MANAGEMENT " +
+                        "ADMIN_GLOBAL_MANAGEMENT > ADMIN_PAYMENT_MANAGEMENT " +
+                        "ADMIN_GLOBAL_MANAGEMENT > ADMIN_MESSAGE_MANAGEMENT";
+        roleHierarchy.setHierarchy(hierarchy);
+        return roleHierarchy;
+    }
+
+    @Override
+    public void configure(WebSecurity web) {
+        DefaultWebSecurityExpressionHandler expressionHandler = new
+                DefaultWebSecurityExpressionHandler();
+        expressionHandler.setRoleHierarchy(roleHierarchy());
+        web.expressionHandler(expressionHandler);
     }
 
 }
