@@ -1,64 +1,192 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title></title>
-    <div th:replace="fragments/head :: head"></div>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>Робоча дошка</title>
 
+    <link rel="canonical" href="https://getbootstrap.ru/docs/4.3/examples/dashboard/">
+    <link th:href="@{/css/bootstrap.css}" href="../static/css/bootstrap.css" rel="stylesheet">
+    <link th:href="@{/css/imazin.css}" href="../static/css/imazin.css" rel="stylesheet">
+    <link th:href="@{/css/dashboard.css}" href="../static/css/dashboard.css" rel="stylesheet">
 </head>
 <body>
+<nav class="navbar navbar-light fixed-top flex-md-nowrap p-0 shadow
+justify-content-between" style="background-color: #c9e2b3;">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">SmartMoney</a>
+    <input class="form-control form-control-dark w-100" type="text" placeholder="Пошук" aria-label="Search">
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link active" th:href="@{/logout}">Вихід</a>
+        </li>
+    </ul>
+</nav>
 
-<div th:replace="fragments/header :: header"></div>
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <svg th:href="@{/img/dashboard1.svg}" href="../static/img/dashboard1.svg"
+                                 width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                 class="feather feather-home">
+                                <path d="M20.42,10.18,12.71,2.3a1,1,0,0,0-1.42,0L3.58,10.19A2,2,0,0,0,3,11.62V20a2,2,0,0,0,1.89,2H19.11A2,2,0,0,0,21,20V11.62A2.07,2.07,0,0,0,20.42,10.18ZM10,20V14h4v6Zm9,0H16V13a1,1,0,0,0-1-1H9a1,1,0,0,0-1,1v7H5V11.58l7-7.15,7,7.19Z"/>
+                                <polyline points="9 22 9 12 15 12 15 22"/>
+                            </svg>
+                            <span data-feather="home"></span>
+                            РОБОЧА ДОШКА <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/categories/all}">
+                            <span data-feather="file"></span>
+                            Рахунки
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="shopping-cart"></span>
+                            Вносимо гроші
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="users"></span>
+                            Витрачаємо гроші
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="bar-chart-2"></span>
+                            Звіти
+                        </a>
+                    </li>
+                </ul>
 
-<div class="container">
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>ЗБЕРЕЖЕНІ ЗВІТИ</span>
+                    <a class="d-flex align-items-center text-muted" href="#">
+                        <span data-feather="plus-circle"></span>
+                    </a>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            Поточний місяць
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            Минулий місяць
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            Поточний рік
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            Минулий рік
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-    <div class="starter-template">
-        <h1>Normal page (No need login)</h1>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            <div class="container my5" th:switch="${users}" >
-
-                <div class="col-md-10">
-                    <h2 th:case="null">No users yet!</h2>
-                    <div th:case="*">
-                        <h2>Users</h2>
-                        <table class="table table-striped table-responsive-md">
-                            <thead>
-                            <tr>
-                                <th>Username</th>
-                                <th>Password</th>
-                                <th>Role</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="user : ${users}">
-                                <td th:text="${user.username}"></td>
-                                <td th:text="${user.password}"></td>
-                                <td th:text="${user.roleSet}"></td>
-                                <td><a th:href="@{/users/edit/{id}(id=${user.user_id})}" class="btn btn-primary">
-                                    <i class="fas fa-user-edit ml-2"></i></a></td>
-                                <td><a th:href="@{/delete/{id}(id=${user.user_id})}" class="btn btn-primary"><i
-                                        class="fas fa-user-times ml-2"></i></a></td>
-                            </tr>
-                            </tbody>
-                        </table>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h3 class="h2">Ваші рахунки на даний час</h3>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group mr-2">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">000</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">000</button>
                     </div>
+                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                        <span data-feather="calendar"></span>
+                        000
+                    </button>
                 </div>
             </div>
-            <p class="my-5">
-                <a class="btn btn-primary">
-                    <i class="fas fa-user-plus ml-2">Add User</i>
-                </a>
-            </p>
-        </div>
+
+            <div class="row placeholders" style="width: 1200px; height: 260px;">
+                <div class="col-xs-4 col-sm-2 placeholder" style="padding: 40px; background-color: #c9e2b3;">
+                    <img th:src="@{img/dashboard_1.png}" src="../static/img/dashboard_1.png" width="125" height="125" class="img-responsive" alt="Necessary">
+                    <h6>Найнеобхідніше</h6>
+                    <span class="text-muted" style="font-size: 18px;">550</span>
+                </div>
+                <div class="col-xs-4 col-sm-2 placeholder" style="padding: 40px; background-color: #c9e2b3;">
+                    <img th:src="@{img/dashboard_2.png}" src="../static/img/dashboard_2.png" width="125" height="125" class="img-responsive" alt="Education">
+                    <h6>Освіта</h6>
+                    <span class="text-muted" style="font-size: 18px;">100</span>
+                </div>
+                <div class="col-xs-4 col-sm-2 placeholder" style="padding: 40px; background-color: #c9e2b3;">
+                    <img th:src="@{img/dashboard_3.png}" src="../static/img/dashboard_3.png" width="125" height="125" class="img-responsive" alt="Accumulation">
+                    <h6>Накопичення</h6>
+                    <span class="text-muted" style="font-size: 18px;">100</span>
+                </div>
+                <div class="col-xs-4 col-sm-2 placeholder" style="padding: 40px; background-color: #c9e2b3;">
+                    <img th:src="@{img/dashboard_4.png}" src="../static/img/dashboard_4.png" width="125" height="125" class="img-responsive" alt="Stocks">
+                    <h6>Запаси</h6>
+                    <span class="text-muted" style="font-size: 18px;">100</span>
+                </div>
+                <div class="col-xs-4 col-sm-2 placeholder" style="padding: 40px; background-color: #c9e2b3;">
+                    <img th:src="@{img/dashboard_5.png}" src="../static/img/dashboard_5.png" width="125" height="125" class="img-responsive" alt="Leisure">
+                    <h6>Дозвілля</h6>
+                    <span class="text-muted" style="font-size: 18px;">100</span>
+                </div>
+                <div class="col-xs-4 col-sm-2 placeholder" style="padding: 40px; background-color: #c9e2b3;">
+                    <img th:src="@{img/dashboard_6.png}" src="../static/img/dashboard_6.png" width="125" height="125" class="img-responsive" alt="Charity">
+                    <h6>Подарунки</h6>
+                    <span class="text-muted" style="font-size: 18px;">50</span>
+                </div>
+            </div>
+            <h3>Журнал подій за поточний місяць</h3>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Найнеобхідніше</th>
+                        <th>Освіта</th>
+                        <th>Накопичення</th>
+                        <th>Запаси</th>
+                        <th>Дозвілля</th>
+                        <th>Подарунки</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>14.11.2020</td>
+                        <td>+550</td>
+                        <td>+100</td>
+                        <td>+100</td>
+                        <td>+100</td>
+                        <td>+100</td>
+                        <td>+50</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </main>
     </div>
-
 </div>
-<!-- /.container -->
-
-<div th:replace="fragments/footer :: footer"></div>
-
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 </body>
 </html>

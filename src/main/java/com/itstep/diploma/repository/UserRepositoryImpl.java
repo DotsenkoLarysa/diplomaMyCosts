@@ -27,7 +27,7 @@ public abstract class UserRepositoryImpl implements UserRepository{
 
     public User saveUser(User user) {
         Role userRole = roleRepository.getRoleByName("ADMIN");
-        user.setRoleSet(new HashSet<>(Collections.singletonList(userRole)));
+      // user.setRoleSet(new HashSet<>(Collections.singletonList(userRole)));
         return userRepository.save(user);
     }
 

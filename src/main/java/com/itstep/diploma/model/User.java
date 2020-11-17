@@ -1,11 +1,10 @@
 package com.itstep.diploma.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.security.Timestamp;
-import java.util.List;
-import java.util.Set;
+import java.util.Date;
 
 @Entity
 @Table(name = "user", schema = "mycosts")
@@ -25,24 +24,25 @@ public class User {
     @Column(name="password")
     private String password;
 
-    //@Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="create_time")
-    private Timestamp create_time;
+    private Date create_time;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
     @JoinTable(name="user_roles", joinColumns = @JoinColumn(name="user_user_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_role_id"))
-    private Set<Role> roleSet;
+    private Role roleSet;
 
     public User() {
     }
 
-    public User(String username, String password, List grantList) {
+    public User(String username, String password) {
     }
 
     public User(Long user_id, @NotBlank(message = "Username is mandatory") String username,
                 @NotBlank(message = "Password is mandatory") @Length(max = 6, min = 3) String password,
-                Timestamp create_time, Set<Role> roleSet) {
+                Date create_time, Role roleSet) {
         this.user_id = user_id;
         this.username = username;
         this.password = password;
@@ -74,19 +74,19 @@ public class User {
         this.password = password;
     }
 
-    public Timestamp getCreate_time() {
+    public Date getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(Timestamp create_time) {
+    public void setCreate_time(Date create_time) {
         this.create_time = create_time;
     }
 
-    public Set<Role> getRoleSet() {
+    public Role getRoleSet() {
         return roleSet;
     }
 
-    public void setRoleSet(Set<Role> roleSet) {
+    public void setRoleSet(Role roleSet) {
         this.roleSet = roleSet;
     }
 

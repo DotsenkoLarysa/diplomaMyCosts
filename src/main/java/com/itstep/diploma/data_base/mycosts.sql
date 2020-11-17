@@ -142,3 +142,4 @@ VALUES (1, 'Larisa', '123123', 1);
 
 INSERT `mycosts`.`user`(user_id, username, password, roleId)
 VALUES (2, 'Alex', '112233', 2);
+

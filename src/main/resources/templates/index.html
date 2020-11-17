@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Spring Boot Thymeleaf + Spring Security</title>
+    <title>Smart Money</title>
 
     <div th:replace="fragments/head :: head"></div>
 
@@ -20,33 +20,6 @@
     </div>
 
 </div>
-<div th:switch="${users}">
-    <h2 th:case="null">No users yet!</h2>
-    <div th:case="*">
-        <h2>Users</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.username}"></td>
-                <td th:text="${user.password}"></td>
-                <td><a th:href="@{/edit/{id}(id=${user.user_id})}">Edit</a></td>
-                <td><a th:href="@{/delete/{id}(id=${user.user_id})}">Delete</a></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <p><a th:href="@{/add-user}">Add a new user</a></p>
-</div>
-
-<!-- /.container -->
 
 <div th:replace="fragments/footer :: footer"></div>
 

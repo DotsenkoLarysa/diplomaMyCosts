@@ -19,82 +19,79 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsServiceImpl userDetailsService;
-
-    public SpringSecurityConfig(UserDetailsServiceImpl userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
-
-    //Требуется для предотвращения применения безопасности к ресурсам
-    String[] resources = new String[]{
-            "/include/**", "/css/**", "/icons/**", "/img/**", "/js/**", "/layer/**"
-    };
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers(resources).permitAll()
-                .antMatchers("/", "/index", "/about").permitAll()
-                .antMatchers("/admin*").access("hasRole('ADMIN')")
-                .antMatchers("/user*").access("hasRole('USER') or hasRole('ADMIN')")
-
-                //Все остальные страницы требуют аутентификации
-                .anyRequest().authenticated()
-                .and()
-
-                //Настройка для входа в систему
-                .formLogin().loginPage("/login").permitAll()
-                .defaultSuccessUrl("/menu")
-                .failureUrl("/login?error=true")
-                .usernameParameter("username")
-                .usernameParameter("password")
-
-                //Перенарпавление на главную страницу после успешного входа
-                .and()
-                .logout()
-                .permitAll()
-                .logoutSuccessUrl("/login?logout");
-    }
-
-    BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    //Шифратор паролей
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
-        //Число 4 показывает, насколько надежно вы хотите шифрование. Он может находиться в диапазоне от 4 до 31.
-        //Если не указать число, программа будет использовать его каждый раз случайным образом,
-        //поэтому зашифрованные пароли не будут работать.
-        return bCryptPasswordEncoder;
-    }
-
-    //Регистрация сервиса для пользователей и шифратора паролей
-    @Autowired
-    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        //Настройка службы для поиска пользователя в базе данных и установка пароляEncoder
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    }
-
-    @Bean
-    public RoleHierarchyImpl roleHierarchy() {
-        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-        String hierarchy =
-                "ADMIN > USER " +
-                "ADMIN_GLOBAL_MANAGEMENT > ADMIN_COMMON " +
-                        "ADMIN_GLOBAL_MANAGEMENT > ADMIN_USER_MANAGEMENT " +
-                        "ADMIN_GLOBAL_MANAGEMENT > ADMIN_PAYMENT_MANAGEMENT " +
-                        "ADMIN_GLOBAL_MANAGEMENT > ADMIN_MESSAGE_MANAGEMENT";
-        roleHierarchy.setHierarchy(hierarchy);
-        return roleHierarchy;
-    }
-
-    @Override
-    public void configure(WebSecurity web) {
-        DefaultWebSecurityExpressionHandler expressionHandler = new
-                DefaultWebSecurityExpressionHandler();
-        expressionHandler.setRoleHierarchy(roleHierarchy());
-        web.expressionHandler(expressionHandler);
-    }
+//
+//    public SpringSecurityConfig() { super();}
+//
+//    //Требуется для предотвращения применения безопасности к ресурсам
+//    String[] resources = new String[]{
+//            "/include/**", "/css/**", "/icons/**", "/img/**", "/js/**", "/layer/**"
+//    };
+//
+//    @Override
+//    protected void configure(final HttpSecurity http) throws Exception {
+//        http
+//                .authorizeRequests()
+//                .antMatchers(resources).permitAll()
+//                .antMatchers("/", "/index", "/about").permitAll()
+//                .antMatchers("/admin*").access("hasRole('ADMIN')")
+//                .antMatchers("/user*").access("hasRole('USER') or hasRole('ADMIN')")
+//
+//                //Все остальные страницы требуют аутентификации
+//                .anyRequest().authenticated()
+//                .and()
+//
+//                //Настройка для входа в систему
+//                .formLogin().loginPage("/login").permitAll()
+//                .defaultSuccessUrl("/index")
+//                .failureUrl("/login?error=true")
+//                .usernameParameter("username")
+//                .usernameParameter("password")
+//
+//                //Перенарпавление на главную страницу после успешного входа
+//                .and()
+//                .logout()
+//                .permitAll()
+//                .logoutSuccessUrl("/index");
+//    }
+//
+//    BCryptPasswordEncoder bCryptPasswordEncoder;
+//
+//    //Шифратор паролей
+//    @Bean
+//    public BCryptPasswordEncoder passwordEncoder() {
+//        bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
+//        //Число 4 показывает, насколько надежно вы хотите шифрование. Он может находиться в диапазоне от 4 до 31.
+//        //Если не указать число, программа будет использовать его каждый раз случайным образом,
+//        //поэтому зашифрованные пароли не будут работать.
+//        return bCryptPasswordEncoder;
+//    }
+//
+//    //Регистрация сервиса для пользователей и шифратора паролей
+//    @Autowired
+//    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        //Настройка службы для поиска пользователя в базе данных и установка пароляEncoder
+//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+//    }
+//
+//    @Bean
+//    public RoleHierarchyImpl roleHierarchy() {
+//        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+//        String hierarchy =
+//                "ADMIN > USER " +
+//                "ADMIN_GLOBAL_MANAGEMENT > ADMIN_COMMON " +
+//                        "ADMIN_GLOBAL_MANAGEMENT > ADMIN_USER_MANAGEMENT " +
+//                        "ADMIN_GLOBAL_MANAGEMENT > ADMIN_PAYMENT_MANAGEMENT " +
+//                        "ADMIN_GLOBAL_MANAGEMENT > ADMIN_MESSAGE_MANAGEMENT";
+//        roleHierarchy.setHierarchy(hierarchy);
+//        return roleHierarchy;
+//    }
+//
+//    @Override
+//    public void configure(WebSecurity web) {
+//        DefaultWebSecurityExpressionHandler expressionHandler = new
+//                DefaultWebSecurityExpressionHandler();
+//        expressionHandler.setRoleHierarchy(roleHierarchy());
+//        web.expressionHandler(expressionHandler);
+//    }
 
 }

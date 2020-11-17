@@ -1,7 +1,10 @@
 package com.itstep.diploma.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 @Entity
 @Table(name = "role", schema = "mycosts")
@@ -14,6 +17,10 @@ public class Role {
 
     @Column(name="name")
     private String name;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user_id")
+    @JsonManagedReference
+    private Set<User> users;
 
     public Role() {
     }

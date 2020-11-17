@@ -8,14 +8,14 @@
     margin: 0;
     text-align: center;
     text-shadow: rgba(0, 0, 0, 0.5) 0 1px 3px;
-    /*text-size-adjust: 100%;*/
     width: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-body{
-    background: url(/static/img/background.jpg) no-repeat center center fixed;
 
-}
+/*body{*/
+/*    background: url(/static/img/background.png) no-repeat center center fixed;*/
+
+/*}*/
 
 .site-wrapper {
     box-shadow: rgba(0, 0, 0, 0.5) 0 0 100px 0 inset;
@@ -64,10 +64,6 @@ li {
 
 li .active {
     position: relative;
-}
-
-a{
-
 }
 
 .cover {

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @EnableJpaRepositories(" sample.data.jpa.service ")
-public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
+public interface TransactionRepository extends JpaRepository<Transaction, Integer>{
 }
