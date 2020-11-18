@@ -30,7 +30,7 @@ public class UserController {
     @GetMapping("/list")
     public String getAllUsers(Model model) {
         model.addAttribute("users", userRepository.findAll());
-        return "user";
+        return "admin";
     }
 
     @PostMapping("/add_user")

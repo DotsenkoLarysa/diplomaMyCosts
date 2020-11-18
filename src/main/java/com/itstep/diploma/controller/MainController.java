@@ -13,7 +13,7 @@ public class MainController {
 
     @GetMapping(value = {"/", "/index"})
     public String index() {
-        return "index";
+        return "/index";
     }
 
     @GetMapping("/admin")
@@ -43,11 +43,12 @@ public class MainController {
 
     @RequestMapping("/add_user")
     public String addUser() {
-        return "add_user";
+        return "/add_user";
     }
+
     @RequestMapping("/update_user")
     public String updateUser() {
-        return "update_user";
+        return "/update_user";
     }
 
 }
