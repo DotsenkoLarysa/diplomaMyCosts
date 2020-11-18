@@ -27,30 +27,37 @@ public class Journal {
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     @JoinColumn(name = "categoryId")
-    private Category categorySet;
+    private Category category;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     @JoinColumn(name = "transactionId")
-    private Transaction transactionSet;
+    private Transaction transaction;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     @JoinColumn(name = "periodId")
-    private Period periodSet;
+    private Period period;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
+    @JoinColumn(name = "userId")
+    private User user;
 
     public Journal() {
     }
 
-    public Journal(Long event_id, Date event_date, @NotBlank(message = "Sum is mandatory") Double event_sum, String description, Category categorySet,
-                   Transaction transactionSet, Period periodSet) {
+    public Journal(Long event_id, Date event_date, @NotBlank(message = "Sum is mandatory") Double event_sum,
+                   String description, Category category, Transaction transaction, Period period,
+                   User user) {
         this.event_id = event_id;
         this.event_date = event_date;
         this.event_sum = event_sum;
         this.description = description;
-        this.categorySet = categorySet;
-        this.transactionSet = transactionSet;
-        this.periodSet = periodSet;
+        this.category = category;
+        this.transaction = transaction;
+        this.period = period;
+        this.user = user;
     }
 
     public long getEvent_id() {
@@ -85,17 +92,21 @@ public class Journal {
         this.description = description;
     }
 
-    public Category getCategorySet() { return categorySet; }
+    public Category getCategory() { return category; }
 
-    public void setCategorySet(Category categories) { this.categorySet = categorySet; }
+    public void setCategory(Category category) { this.category = category; }
 
-    public Transaction getTransactionSet() { return transactionSet; }
+    public Transaction getTransaction() { return transaction; }
 
-    public void setTransactionSet(Transaction transactions) { this.transactionSet = transactionSet; }
+    public void setTransaction(Transaction transaction) { this.transaction = transaction; }
 
-    public Period getPeriodSet() { return periodSet; }
+    public Period getPeriod() { return period; }
 
-    public void setPeriodSet(Period periods) { this.periodSet = periodSet; }
+    public void setPeriod(Period period) { this.period = period; }
+
+    public User getUser() { return user; }
+
+    public void setUser(User user) { this.user = user; }
 
     @Override
     public String toString() {
@@ -104,9 +115,10 @@ public class Journal {
                 ", event_date=" + event_date +
                 ", event_sum=" + event_sum +
                 ", description='" + description + '\'' +
-                ", categorySet=" + categorySet +
-                ", transactionSet=" + transactionSet +
-                ", periodSet=" + periodSet +
+                ", categorySet=" + category +
+                ", transactionSet=" + transaction +
+                ", periodSet=" + period +
+                ", user=" + user +
                 '}';
     }
 }

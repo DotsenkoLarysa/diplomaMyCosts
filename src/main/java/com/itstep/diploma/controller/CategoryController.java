@@ -20,5 +20,6 @@ public class CategoryController {
     public String showAll(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
         return "category";
+
     }
 }

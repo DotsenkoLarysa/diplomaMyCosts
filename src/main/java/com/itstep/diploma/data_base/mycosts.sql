@@ -1,5 +1,4 @@
 CREATE SCHEMA IF NOT EXISTS `mycosts` DEFAULT CHARACTER SET utf8;
-
 USE `mycosts`;
 
 CREATE TABLE IF NOT EXISTS `mycosts`.`user`
@@ -61,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `mycosts`.`journal`
     `event_sum`     DOUBLE       NOT NULL,
     `description`   VARCHAR(255) NULL,
     `periodId`      INT          NOT NULL,
+    `userId`        INT          NOT NULL,
     PRIMARY KEY (`event_id`),
     INDEX `category_id_idx` (`categoryId` ASC),
     INDEX `transaction_id_idx` (`transactionId` ASC),
@@ -79,6 +79,11 @@ CREATE TABLE IF NOT EXISTS `mycosts`.`journal`
         FOREIGN KEY (`periodId`)
             REFERENCES `mycosts`.`period` (`period_id`)
             ON DELETE CASCADE
+            ON UPDATE CASCADE,
+    CONSTRAINT `user_id`
+        FOREIGN KEY (`userId`)
+            REFERENCES `mycosts`.`user` (`user_id`)
+            ON DELETE CASCADE
             ON UPDATE CASCADE
 )
     ENGINE = InnoDB;
@@ -87,6 +92,7 @@ CREATE TABLE IF NOT EXISTS `mycosts`.`balance`
 (
     `balance_id`           INT    NOT NULL AUTO_INCREMENT,
     `periodId_balance`     INT    NOT NULL,
+    `userId`               INT    NOT NULL,
     `create_date`          DATE   NOT NULL,
     `necessary_plus`       DOUBLE NULL,
     `necessary_minus`      DOUBLE NULL,
@@ -114,6 +120,11 @@ CREATE TABLE IF NOT EXISTS `mycosts`.`balance`
     CONSTRAINT `periodId_balance`
         FOREIGN KEY (`periodId_balance`)
             REFERENCES `mycosts`.`period` (`period_id`)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+    CONSTRAINT `userId`
+        FOREIGN KEY (`userId`)
+            REFERENCES `mycosts`.`user` (`user_id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE
 )

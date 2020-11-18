@@ -12,15 +12,42 @@
     <link th:href="@{/css/bootstrap.css}" href="../static/css/bootstrap.css" rel="stylesheet">
     <link th:href="@{/css/imazin.css}" href="../static/css/imazin.css" rel="stylesheet">
     <link th:href="@{/css/dashboard.css}" href="../static/css/dashboard.css" rel="stylesheet">
+    <style>
+        .col-xs-4 col-sm-2 placeholder {
+            padding: 40px;
+            background-color: #c9e2b3;
+        }
+
+        .img-responsive {
+            width: 125px;
+            height: 125px;
+        }
+
+        .text-muted {
+            font-size: 18px;
+        }
+        .nav-item{
+            font-size: 18px;
+        }
+
+        .navbar a{
+            color: #337ab7;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-light fixed-top flex-md-nowrap p-0 shadow
-justify-content-between" style="background-color: #c9e2b3;">
+justify-content-between" style="background-color: #c9e2b3; color: #337ab7;">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">SmartMoney</a>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Пошук" aria-label="Search">
+    <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Пошук" aria-label="Search"> -->
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link active" th:href="@{/logout}">Вихід</a>
+            <h4>Робоча дошка</h4>
+        </li>
+    </ul>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link active" th:href="@{/logout}" style="color: #337ab7;">Вихід</a>
         </li>
     </ul>
 </nav>
@@ -30,19 +57,7 @@ justify-content-between" style="background-color: #c9e2b3;">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                            <svg th:href="@{/img/dashboard1.svg}" href="../static/img/dashboard1.svg"
-                                 width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                 class="feather feather-home">
-                                <path d="M20.42,10.18,12.71,2.3a1,1,0,0,0-1.42,0L3.58,10.19A2,2,0,0,0,3,11.62V20a2,2,0,0,0,1.89,2H19.11A2,2,0,0,0,21,20V11.62A2.07,2.07,0,0,0,20.42,10.18ZM10,20V14h4v6Zm9,0H16V13a1,1,0,0,0-1-1H9a1,1,0,0,0-1,1v7H5V11.58l7-7.15,7,7.19Z"/>
-                                <polyline points="9 22 9 12 15 12 15 22"/>
-                            </svg>
-                            <span data-feather="home"></span>
-                            РОБОЧА ДОШКА <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link active" th:href="@{/categories/all}">
                             <span data-feather="file"></span>
@@ -50,21 +65,21 @@ justify-content-between" style="background-color: #c9e2b3;">
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link active" href="#">
                             <span data-feather="shopping-cart"></span>
                             Вносимо гроші
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link active" th:href="@{/journals/add_form3}">
                             <span data-feather="users"></span>
                             Витрачаємо гроші
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link active" href="#">
                             <span data-feather="bar-chart-2"></span>
-                            Звіти
+                            Сторінка пошуку
                         </a>
                     </li>
                 </ul>
@@ -120,35 +135,41 @@ justify-content-between" style="background-color: #c9e2b3;">
             </div>
 
             <div class="row placeholders" style="width: 1200px; height: 260px;">
-                <div class="col-xs-4 col-sm-2 placeholder" style="padding: 40px; background-color: #c9e2b3;">
-                    <img th:src="@{img/dashboard_1.png}" src="../static/img/dashboard_1.png" width="125" height="125" class="img-responsive" alt="Necessary">
+                <div class="col-xs-4 col-sm-2 placeholder">
+                    <img th:src="@{img/dashboard_1.png}" src="../static/img/dashboard_1.png"
+                         class="img-responsive" alt="Necessary">
                     <h6>Найнеобхідніше</h6>
-                    <span class="text-muted" style="font-size: 18px;">550</span>
+                    <span class="text-muted">550</span>
                 </div>
-                <div class="col-xs-4 col-sm-2 placeholder" style="padding: 40px; background-color: #c9e2b3;">
-                    <img th:src="@{img/dashboard_2.png}" src="../static/img/dashboard_2.png" width="125" height="125" class="img-responsive" alt="Education">
+                <div class="col-xs-4 col-sm-2 placeholder">
+                    <img th:src="@{img/dashboard_2.png}" src="../static/img/dashboard_2.png"
+                         class="img-responsive" alt="Education">
                     <h6>Освіта</h6>
-                    <span class="text-muted" style="font-size: 18px;">100</span>
+                    <span class="text-muted">100</span>
                 </div>
-                <div class="col-xs-4 col-sm-2 placeholder" style="padding: 40px; background-color: #c9e2b3;">
-                    <img th:src="@{img/dashboard_3.png}" src="../static/img/dashboard_3.png" width="125" height="125" class="img-responsive" alt="Accumulation">
+                <div class="col-xs-4 col-sm-2 placeholder">
+                    <img th:src="@{img/dashboard_3.png}" src="../static/img/dashboard_3.png"
+                         class="img-responsive" alt="Accumulation">
                     <h6>Накопичення</h6>
-                    <span class="text-muted" style="font-size: 18px;">100</span>
+                    <span class="text-muted">100</span>
                 </div>
-                <div class="col-xs-4 col-sm-2 placeholder" style="padding: 40px; background-color: #c9e2b3;">
-                    <img th:src="@{img/dashboard_4.png}" src="../static/img/dashboard_4.png" width="125" height="125" class="img-responsive" alt="Stocks">
+                <div class="col-xs-4 col-sm-2 placeholder">
+                    <img th:src="@{img/dashboard_4.png}" src="../static/img/dashboard_4.png"
+                         class="img-responsive" alt="Stocks">
                     <h6>Запаси</h6>
-                    <span class="text-muted" style="font-size: 18px;">100</span>
+                    <span class="text-muted">100</span>
                 </div>
-                <div class="col-xs-4 col-sm-2 placeholder" style="padding: 40px; background-color: #c9e2b3;">
-                    <img th:src="@{img/dashboard_5.png}" src="../static/img/dashboard_5.png" width="125" height="125" class="img-responsive" alt="Leisure">
+                <div class="col-xs-4 col-sm-2 placeholder">
+                    <img th:src="@{img/dashboard_5.png}" src="../static/img/dashboard_5.png"
+                         class="img-responsive" alt="Leisure">
                     <h6>Дозвілля</h6>
-                    <span class="text-muted" style="font-size: 18px;">100</span>
+                    <span class="text-muted">100</span>
                 </div>
-                <div class="col-xs-4 col-sm-2 placeholder" style="padding: 40px; background-color: #c9e2b3;">
-                    <img th:src="@{img/dashboard_6.png}" src="../static/img/dashboard_6.png" width="125" height="125" class="img-responsive" alt="Charity">
+                <div class="col-xs-4 col-sm-2 placeholder">
+                    <img th:src="@{img/dashboard_6.png}" src="../static/img/dashboard_6.png"
+                         class="img-responsive" alt="Charity">
                     <h6>Подарунки</h6>
-                    <span class="text-muted" style="font-size: 18px;">50</span>
+                    <span class="text-muted">50</span>
                 </div>
             </div>
             <h3>Журнал подій за поточний місяць</h3>

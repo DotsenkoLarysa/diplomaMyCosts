@@ -1,4 +1,6 @@
 package com.itstep.diploma.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -81,6 +83,11 @@ public class Balance {
     @JoinColumn(name = "periodId_balance")
     private Period period;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
+    @JoinColumn(name = "userId")
+    private User user;
+
     public Balance() {
     }
 
@@ -89,7 +96,7 @@ public class Balance {
                    Double accumulation_plus, Double accumulation_minus, Double accumulation_balance, Double stocks_plus,
                    Double stocks_minus, Double stocks_balance, Double leisure_plus, Double leisure_minus,
                    Double leisure_balance, Double charity_plus, Double charity_minus, Double charity_balance,
-                   Double cashbook_plus, Double cashbook_minus, Double cashbook_balance, Period period) {
+                   Double cashbook_plus, Double cashbook_minus, Double cashbook_balance, Period period, User user) {
         this.balance_id = balance_id;
         this.create_date = create_date;
         this.necessary_plus = necessary_plus;
@@ -114,6 +121,7 @@ public class Balance {
         this.cashbook_minus = cashbook_minus;
         this.cashbook_balance = cashbook_balance;
         this.period = period;
+        this.user = user;
     }
 
     public long getBalance_id() {
@@ -211,6 +219,10 @@ public class Balance {
     public void setPeriod(Period period) {
         this.period = period;
     }
+
+    public User getUser() { return user; }
+
+    public void setUser(User user) { this.user = user; }
 
     public Double getStocks_plus() {
         return stocks_plus;
@@ -335,6 +347,7 @@ public class Balance {
                 ", cashbook_minus=" + cashbook_minus +
                 ", cashbook_balance=" + cashbook_balance +
                 ", period=" + period +
+                ", user=" + user +
                 '}';
     }
 }

@@ -3,20 +3,32 @@ h1 {
 }
 
 h2 {
-    color: #ff171c;
+    color: #4a2bff;
 }
 
-footer {
-    margin-top: 60px;
+* {
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+.container, .header, .footer {
+    box-sizing: border-box;
+    padding: 20px;
+    width: 100%;
 }
 
 body {
-    background: url(../static/img/background.png) no-repeat center center fixed;
-    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    color: #222222;
     padding-bottom: 40px;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.42857143;
+    font-size: 16px;
+    line-height: 1.8;
 }
 
 .main-section {

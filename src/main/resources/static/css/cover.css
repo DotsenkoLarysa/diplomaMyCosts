@@ -12,11 +12,6 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-/*body{*/
-/*    background: url(/static/img/background.png) no-repeat center center fixed;*/
-
-/*}*/
-
 .site-wrapper {
     box-shadow: rgba(0, 0, 0, 0.5) 0 0 100px 0 inset;
     display: table;

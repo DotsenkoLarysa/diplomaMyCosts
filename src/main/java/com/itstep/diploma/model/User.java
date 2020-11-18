@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "user", schema = "mycosts")
@@ -33,6 +34,12 @@ public class User {
     @JoinTable(name="user_roles", joinColumns = @JoinColumn(name="user_user_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_role_id"))
     private Role roleSet;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "event_id")
+    private Set<Journal> journalSet;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "balance_id")
+    private Set<Balance> balanceSet;
 
     public User() {
     }
