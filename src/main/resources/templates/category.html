@@ -14,8 +14,8 @@
     <div class="starter-template">
         <h1>Категорії рахунків</h1>
     </div>
-    <div th:switch="${categories}">
-        <div th:case="*">
+    <div th:switch="${categories}" class="row">
+        <div th:case="*" class="col-md-6">
             <table class="table table-striped table-sm">
                 <thead>
                 <tr>
@@ -25,18 +25,58 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="category : ${categories}">
+                <tr th:each="category : ${categories}" th:if="${category.category_id<7}">
                     <td th:text="${category.name_category}"></td>
                     <td th:text="${category.percentage}"></td>
-                    <td><a th:href="@{/edit/{id}(id=${category.category_id})}">Змінити</a></td>
+                    <td><a th:href="@{'/categories/edit/' + ${category.category_id}}" readonly
+                           th:if="${category.category_id<6}">Змінити</a>
+                    </td>
                 </tr>
                 </tbody>
+                <tfoot>
+                <tr>
+                    <th>Загальна сума:</th>
+                    <th colspan="2">
+                        <span></span>
+                    </th>
+                </tr>
+                </tfoot>
             </table>
+        </div>
+        <div class="col-md-6">
+            <a class="btn btn-success" th:href="@{/about}">На робочу сторінку</a>
+            <a class="btn btn-success" data-toggle="modal" data-target="#myModal">Модальне вікно</a>
+        </div>
+        <!-- Modal -->
+        <div class="modal modal-warning fade in" id="myModal" tabindex="-2" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <!-- Modal content -->
+                <div modal-content>
+                    <div modal-header>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5 class="modal-title" id="myModalLabel">Додати запис:</h5>
+                    </div>
+                    <div class="modal-body">
+
+                        <p>Error! Sum Category!!!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Змінити</button>
+                        <a type="button" class="btn btn-info">
+                            <i class="fa fa-check"></i>Зберегти
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
 </div>
 <div th:replace="fragments/footer :: footer"></div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </body>
 </html>

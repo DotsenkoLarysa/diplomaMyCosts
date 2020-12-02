@@ -1,45 +1,58 @@
 package com.itstep.diploma.controller;
 
+import com.itstep.diploma.model.Category;
 import com.itstep.diploma.model.Journal;
-import com.itstep.diploma.repository.JournalRepository;
+import com.itstep.diploma.model.Transaction;
+import com.itstep.diploma.model.User;
+import com.itstep.diploma.service.JournalService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/journals")
 public class JournalController {
-    private final JournalRepository journalRepository;
 
-    public JournalController(JournalRepository journalRepository) {
+    private final JournalService journalService;
 
-        this.journalRepository = journalRepository;
-    }
-
-    @GetMapping("/add_form3")
-    public String showAddForm3(Journal journal){
-        return "addWithdrawal";
+    public JournalController(JournalService journalService) {
+        this.journalService = journalService;
     }
 
     @GetMapping("/all")
     public String showAll(Model model) {
-        model.addAttribute("journals", journalRepository.findAll());
-        return "addWithdrawal";
+        model.addAttribute("listJournals", journalService.listAll());
+        return "journal";
     }
 
-    @PostMapping("/add3")
-    public String addJournal3(@Valid Journal journal, BindingResult result, Model model) {
+    @GetMapping(value = {"/add_form1", "/add_form3"})
+    public String showAddForm3(Model model) {
+        Journal journal = new Journal();
+        journal.setEvent_date(new Date());
+        journal.setCategory(new Category());
+        journal.setTransaction(new Transaction());
+        journal.setUser(new User());
+        model.addAttribute("journalNew", journal);
+        return "addJournal";
+    }
+
+    @PostMapping("/save")
+    public String save(@ModelAttribute("journalNew") @Valid Journal journal, BindingResult result) {
         if (result.hasErrors()) {
-            return "addWithdrawal";
+            return "redirect:/journals/add_form3";
         }
-        journalRepository.save(journal);
-        return "redirect:/journals/add3";
+        journalService.save(journal);
+        return "redirect:/journals/all";
     }
 
-
+    @GetMapping("/edit/{event_id}")
+    public String showEditForm(Model model, @PathVariable Long event_id) {
+        model.addAttribute("journals", journalService.get(event_id));
+        return "editJournalForm";
+    }
 }

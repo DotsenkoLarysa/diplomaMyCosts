@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title></title>
+    <div th:replace="fragments/head :: head"></div>
+</head>
+<body style="height: 100%; display: flex; flex-direction: column;">
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container"
+     style="box-sizing: border-box; width: 100%; padding: 20px; flex-grow: 1;">
+
+    <div class="starter-template">
+        <h1>Змінити рахунок:</h1>
+    </div>
+    <div class="row">
+        <div class="form-group col-6 col-md-6">
+            <form action="#" th:action="@{/categories/save}" th:object="${categories}"
+                  method="post">
+
+                <table class="table table-bordered table-hover table-sm">
+                    <tr>
+                        <td>
+                            <label> ID:
+                                <input type="text" th:field="*{category_id}" readonly/>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Назва:
+                                <input type="text" th:field="*{name_category}" readonly/>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Величина (%)
+                                <input type="text" th:field="*{percentage}"/>
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <button class="btn btn-primary" type="submit" th:value="Save"
+                                    style="margin: 20px;">Save
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

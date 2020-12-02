@@ -1,10 +1,11 @@
 package com.itstep.diploma.model;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
-@Table(name = "category",schema="mycosts")
+@Table(name = "category", schema = "mycosts")
 public class Category {
 
     @Id
@@ -12,26 +13,16 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int category_id;
 
-    @NotBlank(message = "Specify the category name")
     @Column(name = "name_category")
     private String name_category;
 
-    @NotBlank(message = "Indicate the percentage")
     @Column(name = "percentage_value")
     private int percentage;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "event_id")
+    @OneToMany(mappedBy = "category")
     private Set<Journal> journalSet;
 
     public Category() {
-    }
-
-    public Category(int category_id, @NotBlank(message = "Specify the category name") String name_category,
-                    @NotBlank(message = "Indicate the percentage") int percentage, Set<Journal> journalSet) {
-        this.category_id = category_id;
-        this.name_category = name_category;
-        this.percentage = percentage;
-        this.journalSet = journalSet;
     }
 
     public int getCategory_id() {
@@ -72,7 +63,6 @@ public class Category {
                 "category_id=" + category_id +
                 ", name_category='" + name_category + '\'' +
                 ", percentage=" + percentage +
-                ", journalSet=" + journalSet +
                 '}';
     }
 }

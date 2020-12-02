@@ -1,5 +1,4 @@
 package com.itstep.diploma.model;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -79,49 +78,11 @@ public class Balance {
     @Column(name = "cashbook_balance", nullable = false)
     private Double cashbook_balance;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "periodId_balance")
-    private Period period;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
-    @JoinColumn(name = "userId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false)
     private User user;
 
     public Balance() {
-    }
-
-    public Balance(Long balance_id, Date create_date, Double necessary_plus, Double necessary_minus,
-                   Double necessary_balance, Double education_plus, Double education_minus, Double education_balance,
-                   Double accumulation_plus, Double accumulation_minus, Double accumulation_balance, Double stocks_plus,
-                   Double stocks_minus, Double stocks_balance, Double leisure_plus, Double leisure_minus,
-                   Double leisure_balance, Double charity_plus, Double charity_minus, Double charity_balance,
-                   Double cashbook_plus, Double cashbook_minus, Double cashbook_balance, Period period, User user) {
-        this.balance_id = balance_id;
-        this.create_date = create_date;
-        this.necessary_plus = necessary_plus;
-        this.necessary_minus = necessary_minus;
-        this.necessary_balance = necessary_balance;
-        this.education_plus = education_plus;
-        this.education_minus = education_minus;
-        this.education_balance = education_balance;
-        this.accumulation_plus = accumulation_plus;
-        this.accumulation_minus = accumulation_minus;
-        this.accumulation_balance = accumulation_balance;
-        this.stocks_plus = stocks_plus;
-        this.stocks_minus = stocks_minus;
-        this.stocks_balance = stocks_balance;
-        this.leisure_plus = leisure_plus;
-        this.leisure_minus = leisure_minus;
-        this.leisure_balance = leisure_balance;
-        this.charity_plus = charity_plus;
-        this.charity_minus = charity_minus;
-        this.charity_balance = charity_balance;
-        this.cashbook_plus = cashbook_plus;
-        this.cashbook_minus = cashbook_minus;
-        this.cashbook_balance = cashbook_balance;
-        this.period = period;
-        this.user = user;
     }
 
     public long getBalance_id() {
@@ -210,14 +171,6 @@ public class Balance {
 
     public void setAccumulation_balance(Double accumulation_balance) {
         this.accumulation_balance = accumulation_balance;
-    }
-
-    public Period getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(Period period) {
-        this.period = period;
     }
 
     public User getUser() { return user; }
@@ -320,35 +273,5 @@ public class Balance {
         this.cashbook_balance = cashbook_balance;
     }
 
-    @Override
-    public String toString() {
-        return "Balance{" +
-                "balance_id=" + balance_id +
-                ", create_date=" + create_date +
-                ", necessary_plus=" + necessary_plus +
-                ", necessary_minus=" + necessary_minus +
-                ", necessary_balance=" + necessary_balance +
-                ", education_plus=" + education_plus +
-                ", education_minus=" + education_minus +
-                ", education_balance=" + education_balance +
-                ", accumulation_plus=" + accumulation_plus +
-                ", accumulation_minus=" + accumulation_minus +
-                ", accumulation_balance=" + accumulation_balance +
-                ", stocks_plus=" + stocks_plus +
-                ", stocks_minus=" + stocks_minus +
-                ", stocks_balance=" + stocks_balance +
-                ", leisure_plus=" + leisure_plus +
-                ", leisure_minus=" + leisure_minus +
-                ", leisure_balance=" + leisure_balance +
-                ", charity_plus=" + charity_plus +
-                ", charity_minus=" + charity_minus +
-                ", charity_balance=" + charity_balance +
-                ", cashbook_plus=" + cashbook_plus +
-                ", cashbook_minus=" + cashbook_minus +
-                ", cashbook_balance=" + cashbook_balance +
-                ", period=" + period +
-                ", user=" + user +
-                '}';
-    }
 }
 

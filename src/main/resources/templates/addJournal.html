@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Smart Money</title>
+    <meta th:http-equiv="Content-Type">
+    <div th:replace="fragments/head :: head"></div>
+
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css}"
+          th:rel="stylesheet"/>
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.css}"
+          th:rel="stylesheet"/>
+    <link th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " th:rel="stylesheet"/>
+    <link th:href="@{webjars/font-awesome/5.11.2/css/all.css} " th:rel="stylesheet"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container">
+    <h3>Додати запис витрат:</h3>
+    <div class="row">
+        <a class="btn btn-info" href="#" th:href="@{/journals/all}" style="margin: 30px;">Список витрат</a>
+        <form action="#" th:action="@{/journals/save}" method="post" th:object="${journalNew}">
+            <fieldset>
+                <div class="row">
+                    <div class="form-row">
+                        <div class="form-group col-3 col-md-3">
+                            <label for="event_date">Дата події</label>
+                            <div class="input-group date">
+                                <input type="text" class="form-control" id="event_date" placeholder="dd/MM/yyyy"
+                                       th:field="${journalNew.event_date}" autocomplete="off"
+                                />
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="far fa-calendar-alt"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-3 col-md-3">
+                            <label for="user">Користувач</label>
+                            <input type="text" class="form-control" id="user"
+                                   th:field="${journalNew.user}"/>
+                        </div>
+                        <div class="form-group col-6 col-md-6">
+                            <label for="category">Рахунок</label>
+                            <select class="form-control" id="category" th:field="${journalNew.category}">
+                                <option value="">Виберіть...</option>
+                                <option th:value="1">Найнеобхідніше</option>
+                                <option th:value="2">Освіта</option>
+                                <option th:value="3">Накопичення</option>
+                                <option th:value="4">Відпочинок</option>
+                                <option th:value="5">Подарунки</option>
+                                <option th:value="7" style="background-color: #8fd19e">Загальна каса</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-6 col-md-6">
+                            <label for="event_sum">Сумма (0,5-1000)</label>
+                            <input type="number" class="form-control" id="event_sum" autocomplete="off"
+                                   th:field="${journalNew.event_sum}"
+                                   min="0,5" max="1000" step="0.1" data-decimals="1"/>
+                        </div>
+                        <div class="form-group col-6 col-md-6">
+                            <label for="transaction">Операція</label>
+                            <select class="form-control" id="transaction" th:field="${journalNew.transaction}">
+                                <option value="">Виберіть...</option>
+                                <option th:value="1" style="background-color: #8fd19e">Внесення</option>
+                                <option th:value="3">Витрачання</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+
+                        <div class="form-group col-12 col-md-12">
+                            <label for="description">Опис</label>
+                            <input type="text" class="form-control" id="description" autocomplete="off"
+                                   th:field="${journalNew.description}" data-length="255"/>
+                        </div>
+                    </div>
+                    <button class="btn btn-info" type="submit"
+                            style="margin: 20px;">Зберегти
+                    </button>
+                    <button class="btn btn-info" type="reset" th:value="Reset"
+                            style="margin: 20px;">Очистити
+                    </button>
+
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js}"></script>
+
+<script>
+    $('.input-group.date').datepicker({autoclose: true, todayHighlight: true, format: 'dd-MM-2020'});
+</script>
+
+
+</body>
+</html>

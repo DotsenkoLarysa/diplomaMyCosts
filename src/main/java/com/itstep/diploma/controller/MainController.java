@@ -1,34 +1,36 @@
 package com.itstep.diploma.controller;
 
+import com.itstep.diploma.service.JournalService;
+import com.itstep.diploma.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+
 public class MainController {
 
-    public MainController() {
-        super();
+    private final UserService userService;
+    private final JournalService journalService;
+
+    public MainController(UserService userService, JournalService journalService) {
+        this.userService = userService;
+        this.journalService = journalService;
     }
 
     @GetMapping(value = {"/", "/index"})
     public String index() {
-        return "/index";
-    }
-
-    @GetMapping("/admin")
-    public String admin() {
-        return "/admin";
+        return "index";
     }
 
     @GetMapping("/user")
-    public String user() {
+    public String user(Model model) {
         return "/user";
     }
 
     @GetMapping("/login")
     public String login() {
-        return "/login";
+        return "/index";
     }
 
     @GetMapping("/403")
@@ -37,18 +39,9 @@ public class MainController {
     }
 
     @GetMapping("/about")
-    public String about() {
+    public String about(Model model) {
+        model.addAttribute("listJournals", journalService.listAll());
         return "/about";
-    }
-
-    @RequestMapping("/add_user")
-    public String addUser() {
-        return "/add_user";
-    }
-
-    @RequestMapping("/update_user")
-    public String updateUser() {
-        return "/update_user";
     }
 
 }

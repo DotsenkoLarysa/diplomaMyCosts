@@ -1,28 +1,30 @@
 package com.itstep.diploma.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
 @Table(name = "role", schema = "mycosts")
-public class Role {
+public class Role implements GrantedAuthority {
 
     @Id
-    @Column(name="role_id")
+    @Column(name = "role_id")
     @GeneratedValue
     private int role_id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user_id")
-    @JsonManagedReference
+    @OneToMany(mappedBy = "role")
     private Set<User> users;
 
     public Role() {
+    }
+
+    public Role(int role_id) {
+        this.role_id = role_id;
     }
 
     public Role(int role_id, String name) {
@@ -46,11 +48,16 @@ public class Role {
         this.name = name;
     }
 
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
     @Override
-    public String toString() {
-        return "Role{" +
-                "role_id=" + role_id +
-                ", name='" + name + '\'' +
-                '}';
+    public String getAuthority() {
+        return getName();
     }
 }

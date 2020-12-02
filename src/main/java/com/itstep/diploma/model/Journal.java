@@ -1,8 +1,8 @@
 package com.itstep.diploma.model;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
@@ -11,53 +11,32 @@ public class Journal {
 
     @Id
     @Column(name = "event_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long event_id;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "event_date", nullable = false)
     private Date event_date;
 
-    @NotBlank(message = "Sum is mandatory")
     @Column(name = "event_sum", nullable = false)
     private Double event_sum;
 
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
-    @JoinColumn(name = "categoryId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoryId", nullable = false)
     private Category category;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
-    @JoinColumn(name = "transactionId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "transactionId", nullable = false)
     private Transaction transaction;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
-    @JoinColumn(name = "periodId")
-    private Period period;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
-    @JoinColumn(name = "userId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false)
     private User user;
 
     public Journal() {
-    }
-
-    public Journal(Long event_id, Date event_date, @NotBlank(message = "Sum is mandatory") Double event_sum,
-                   String description, Category category, Transaction transaction, Period period,
-                   User user) {
-        this.event_id = event_id;
-        this.event_date = event_date;
-        this.event_sum = event_sum;
-        this.description = description;
-        this.category = category;
-        this.transaction = transaction;
-        this.period = period;
-        this.user = user;
     }
 
     public long getEvent_id() {
@@ -92,21 +71,30 @@ public class Journal {
         this.description = description;
     }
 
-    public Category getCategory() { return category; }
+    public Category getCategory() {
+         return category;
+    }
 
-    public void setCategory(Category category) { this.category = category; }
 
-    public Transaction getTransaction() { return transaction; }
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
-    public void setTransaction(Transaction transaction) { this.transaction = transaction; }
+    public Transaction getTransaction() {
+        return transaction;
+    }
 
-    public Period getPeriod() { return period; }
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }
 
-    public void setPeriod(Period period) { this.period = period; }
+    public User getUser() {
+        return user;
+    }
 
-    public User getUser() { return user; }
-
-    public void setUser(User user) { this.user = user; }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public String toString() {
@@ -114,11 +102,7 @@ public class Journal {
                 "event_id=" + event_id +
                 ", event_date=" + event_date +
                 ", event_sum=" + event_sum +
-                ", description='" + description + '\'' +
-                ", categorySet=" + category +
-                ", transactionSet=" + transaction +
-                ", periodSet=" + period +
-                ", user=" + user +
+                ", description='" + description +
                 '}';
     }
 }

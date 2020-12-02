@@ -7,56 +7,30 @@
 <body>
 
 <div th:replace="fragments/header :: header"></div>
-
 <div class="container">
-
-    <!--    <div class="row" style="margin-top:20px">-->
-    <!--        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">-->
-    <!--            <form th:action="@{/login}" method="post">-->
-    <!--                <fieldset>-->
-    <!--                    <h1>Please Sign In</h1>-->
-
-    <!--                    <div th:if="${param.error}">-->
-    <!--                        <div class="alert alert-danger">-->
-    <!--                            Invalid username and password.-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                    <div th:if="${param.logout}">-->
-    <!--                        <div class="alert alert-info">-->
-    <!--                            You have been logged out.-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="form-group">-->
-    <!--                        <input type="text" name="username" id="username" class="form-control input-lg"-->
-    <!--                               placeholder="UserName" required="true" autofocus="true"/>-->
-    <!--                    </div>-->
-    <!--                    <div class="form-group">-->
-    <!--                        <input type="password" name="password" id="password" class="form-control input-lg"-->
-    <!--                               placeholder="Password" required="true"/>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="row">-->
-    <!--                        <div class="col-xs-6 col-sm-6 col-md-6">-->
-    <!--                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign In"/>-->
-    <!--                        </div>-->
-    <!--                        <div class="col-xs-6 col-sm-6 col-md-6">-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </fieldset>-->
-    <!--            </form>-->
-    <!--        </div>-->
-    <!--    </div>-->
     <div class="modal-dialog text-center">
         <div class="col-sm-8 main-section">
             <div class="modal-content">
+<!--                <form method="POST" action="/login">-->
+<!--                    <h2>Вход в систему</h2>-->
+<!--                    <div>-->
+<!--                        <label>-->
+<!--                            <input name="username" type="text" placeholder="Username" autofocus />-->
+<!--                        </label>-->
+<!--                        <label>-->
+<!--                            <input name="password" type="password" placeholder="Password"/>-->
+<!--                        </label>-->
+<!--                        <button type="submit">Log In</button>-->
+<!--                        <h4><a href="/registration">Зарегистрироваться</a></h4>-->
+<!--                    </div>-->
+<!--                </form>-->
                 <div class="col-12 user-img">
                     <img src="/static/img/user.png" th:src="@{/img/user.png}" width="256" height="256" alt="user"/>
                 </div>
                 <form class="col-12" th:action="@{/login}" method="post">
                     <div class="form-group" id="user-group">
                         <label>
-                            <input class="form-control" name="username" placeholder="Username" type="text"/>
+                            <input class="form-control" name="username" placeholder="Username" type="text" />
                         </label>
                     </div>
                     <div class="form-group" id="password-group">
@@ -64,10 +38,10 @@
                             <input class="form-control" name="password" placeholder="Password" type="password"/>
                         </label>
                     </div>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Submit</button>
+                    <button type="submit" class="btn btn-primary" ><i class="fas fa-sign-in-alt"></i> Log in</button>
                 </form>
                 <div class="col-12 forgot">
-                    <a href="#">Remember password?</a>
+                    <a href="#" th:href="@{/registration}">Remember password?</a>
                 </div>
                 <div class="alert alert-danger" role="alert" th:if="${param.error}">
                     Invalid username and password.

@@ -16,17 +16,10 @@ public class Transaction {
     @Column(name = "name_transaction")
     private String name_transaction;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "event_id")
-    @JsonManagedReference
+    @OneToMany(mappedBy = "transaction")
     private Set<Journal> journals;
 
     public Transaction() {
-    }
-
-    public Transaction(int transaction_id, String name_transaction, Set<Journal> journals) {
-        this.transaction_id = transaction_id;
-        this.name_transaction = name_transaction;
-        this.journals = journals;
     }
 
     public int getTransaction_id() {
@@ -54,7 +47,6 @@ public class Transaction {
         return "Transaction{" +
                 "transaction_id=" + transaction_id +
                 ", name_transaction='" + name_transaction + '\'' +
-                ", journals=" + journals +
                 '}';
     }
 }

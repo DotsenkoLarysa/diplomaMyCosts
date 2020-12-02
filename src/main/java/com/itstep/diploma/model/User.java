@@ -1,63 +1,52 @@
 package com.itstep.diploma.model;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.hibernate.validator.constraints.Length;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
 @Table(name = "user", schema = "mycosts")
-public class User {
+public class User implements UserDetails {
 
     @Id
-    @Column(name="user_id")
-    @GeneratedValue
+    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long user_id;
 
-    @NotBlank(message="Username is mandatory")
-    @Column(name="username")
+    @Size(min = 2, message = "Не меньше 5 знаків")
+    @Column(name = "username")
     private String username;
 
-    @NotBlank(message="Password is mandatory")
-    @Length(max = 6, min = 3)
-    @Column(name="password")
+    @Size(min = 3, message = "Не меньше 6 знаків")
+    @Column(name = "password", length = 400)
     private String password;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="create_time")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name = "create_time")
     private Date create_time;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
-    @JoinTable(name="user_roles", joinColumns = @JoinColumn(name="user_user_id"),
-            inverseJoinColumns = @JoinColumn(name = "roles_role_id"))
-    private Role roleSet;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "event_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinTable (name="user_role", joinColumns={@JoinColumn(name = "user_userId", referencedColumnName = "user_id")},
+            inverseJoinColumns={@JoinColumn(name="role_roleId",referencedColumnName="role_id")})
+    private Role role;
+
+    @OneToMany(mappedBy = "user")
     private Set<Journal> journalSet;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "balance_id")
+    @OneToMany(mappedBy = "user")
     private Set<Balance> balanceSet;
 
     public User() {
     }
 
-    public User(String username, String password) {
-    }
-
-    public User(Long user_id, @NotBlank(message = "Username is mandatory") String username,
-                @NotBlank(message = "Password is mandatory") @Length(max = 6, min = 3) String password,
-                Date create_time, Role roleSet) {
-        this.user_id = user_id;
-        this.username = username;
-        this.password = password;
-        this.create_time = create_time;
-        this.roleSet = roleSet;
-    }
-
-    public long getUser_id() {
+    public Long getUser_id() {
         return user_id;
     }
 
@@ -69,8 +58,34 @@ public class User {
         return username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
     public void setUsername(String username) {
         this.username = username;
+    }
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
     public String getPassword() {
@@ -89,12 +104,28 @@ public class User {
         this.create_time = create_time;
     }
 
-    public Role getRoleSet() {
-        return roleSet;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleSet(Role roleSet) {
-        this.roleSet = roleSet;
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Set<Journal> getJournalSet() {
+        return journalSet;
+    }
+
+    public void setJournalSet(Set<Journal> journalSet) {
+        this.journalSet = journalSet;
+    }
+
+    public Set<Balance> getBalanceSet() {
+        return balanceSet;
+    }
+
+    public void setBalanceSet(Set<Balance> balanceSet) {
+        this.balanceSet = balanceSet;
     }
 
     @Override
@@ -104,7 +135,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", create_time=" + create_time +
-                ", roleSet=" + roleSet +
+                ", role=" + role +
                 '}';
     }
 }

@@ -58,31 +58,21 @@
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link active" th:href="@{/categories/all}">
-                            <span data-feather="file"></span>
                             Рахунки
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                            <span data-feather="shopping-cart"></span>
-                            Вносимо гроші
+                        <a class="nav-link active" href="#" th:href="@{/journals/add_form3}">
+                            Вносимо або витрачаємо гроші
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" th:href="@{/journals/add_form3}">
-                            <span data-feather="users"></span>
-                            Витрачаємо гроші
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                            <span data-feather="bar-chart-2"></span>
+                        <a class="nav-link active" href="#" th:href="@{/journals/all}">
                             Журнал подій
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="#">
-                            <span data-feather="bar-chart-2"></span>
                             Збережені звіти
                         </a>
                     </li>
@@ -94,14 +84,14 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h3 class="h2">Ваші рахунки на даний час</h3>
                 <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group mr-2">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">000</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">000</button>
-                    </div>
-                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <span data-feather="calendar"></span>
-                        000
-                    </button>
+<!--                    <div class="btn-group mr-2">-->
+<!--                        <button type="button" class="btn btn-sm btn-outline-secondary">000</button>-->
+<!--                        <button type="button" class="btn btn-sm btn-outline-secondary">000</button>-->
+<!--                    </div>-->
+<!--                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">-->
+<!--                        <span data-feather="calendar"></span>-->
+<!--                        000-->
+<!--                    </button>-->
                 </div>
             </div>
 
@@ -150,23 +140,17 @@
                     <thead>
                     <tr>
                         <th>Дата</th>
-                        <th>Найнеобхідніше</th>
-                        <th>Освіта</th>
-                        <th>Накопичення</th>
-                        <th>Запаси</th>
-                        <th>Дозвілля</th>
-                        <th>Подарунки</th>
+                        <th>Рахунок</th>
+                        <th>Сума</th>
+                        <th>Опис операції</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>14.11.2020</td>
-                        <td>+550</td>
-                        <td>+100</td>
-                        <td>+100</td>
-                        <td>+100</td>
-                        <td>+100</td>
-                        <td>+50</td>
+                    <tr th:each="journal : ${listJournals}">
+                        <td th:text="${journal.event_date}"></td>
+                        <td th:text="${journal.category}"></td>
+                        <td th:text="${journal.event_sum}"></td>
+                        <td th:text="${journal.description}"></td>
                     </tr>
                     </tbody>
                 </table>

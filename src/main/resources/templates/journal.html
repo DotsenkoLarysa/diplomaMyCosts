@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title></title>
+    <div th:replace="fragments/head :: head"></div>
+</head>
+<body style="height: 100%; display: flex; flex-direction: column;">
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container"
+     style="box-sizing: border-box; width: 100%; padding: 20px; flex-grow: 1;">
+    <div class="row">
+        <div class="starter-template col-md-12">
+            <h1>Журнал подій</h1>
+        </div>
+    </div>
+    <div class="row" th:switch="${listJournals}">
+        <div class="col-md-9" th:case="*">
+            <table class="table table-striped table-sm">
+                <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Рахунок</th>
+                    <th>Сума</th>
+                    <th>Опис операції</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${listJournals.isEmpty()}">
+                    <td colspan="4">Записи подій відсутні</td>
+                </tr>
+                <tr th:each="journal : ${listJournals}">
+                    <td th:text="*{#dates.format(journal.event_date, 'dd.MM.yyyy')}"></td>
+                    <td th:text="${journal.event_sum}"></td>
+                    <td th:text="${journal.event_sum}"></td>
+                    <td th:text="${journal.description}"></td>
+
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3">
+            <a class="btn btn-success" href="#" th:href="@{/journals/add_form3}">Додати запис</a>
+            <a class="btn btn-primary" href="#" th:href="@{/journals/edit}"
+               th:classappend="${listJournals.isEmpty()} ? 'disabled' : ''">Змінити запис</a>
+        </div>
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

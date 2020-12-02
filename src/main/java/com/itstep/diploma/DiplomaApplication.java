@@ -13,14 +13,13 @@ public class DiplomaApplication {
     public static void main(String[] args) {
         SpringApplication.run(DiplomaApplication.class, args);
     }
-
-    private final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    private Date parseTimestamp(String timestamp){
-        try{
-            return DATE_TIME_FORMAT.parse(timestamp);
-        } catch(ParseException e){
-            throw new IllegalArgumentException(e);
-        }
-    }
+//    private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+//    private Date parseDate(String date){
+//        try{
+//            return new Date(DATE_FORMAT.parse(date).getTime());
+//        } catch(ParseException e){
+//            throw new IllegalArgumentException(e);
+//        }
+//    }
 
 }
